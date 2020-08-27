@@ -19,8 +19,8 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+(setq doom-font (font-spec :family "Iosevka SS09" :size 14 :weight 'medium)
+      doom-variable-pitch-font (font-spec :family "Ubuntu" :size 14))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -33,7 +33,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -52,3 +52,25 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+
+;; Persist Emacs’ initial frame position, dimensions and/or full-screen state
+;; across sessions.
+(when-let (dims (doom-store-get 'last-frame-size))
+  (cl-destructuring-bind ((left . top) width height fullscreen) dims
+    (setq initial-frame-alist
+          (append initial-frame-alist
+                  `((left . ,left)
+                    (top . ,top)
+                    (width . ,width)
+                    (height . ,height)
+                    (fullscreen . ,fullscreen))))))
+
+(defun save-frame-dimensions ()
+  (doom-store-put 'last-frame-size
+                  (list (frame-position)
+                        (frame-width)
+                        (frame-height)
+                        (frame-parameter nil 'fullscreen))))
+
+(add-hook 'kill-emacs-hook #'save-frame-dimensions)
