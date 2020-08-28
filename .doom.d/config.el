@@ -76,3 +76,7 @@
 
 ;; galaunay/poetry.el configs
 (setq poetry-tracking-strategy 'switch-buffer)
+
+
+;; projectile configs
+(setq counsel-projectile-switch-project-action 'counsel-projectile-switch-project-action-vc)
