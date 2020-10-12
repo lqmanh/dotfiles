@@ -83,3 +83,6 @@
 
 ;; projectile configs
 (setq counsel-projectile-switch-project-action 'counsel-projectile-switch-project-action-vc)
+
+;; lsp-mode configs
+(setq lsp-enable-file-watchers nil)
