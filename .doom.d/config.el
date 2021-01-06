@@ -86,3 +86,8 @@
 
 ;; lsp-mode configs
 (setq lsp-enable-file-watchers nil)
+
+;; magit configs
+(with-eval-after-load 'magit
+  (transient-append-suffix 'magit-push "-u"
+    '(1 "=s" "Skip Gitlab pipeline" "--push-option=ci.skip")))
